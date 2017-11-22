@@ -3,7 +3,9 @@
 using System;
 
 namespace FightGameRaul
-{
+{/// <summary>
+/// /
+/// </summary>
     public enum Gender
     {
         Male,
