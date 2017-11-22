@@ -21,7 +21,7 @@ namespace FightGameRaul
         public Player()
         {
             //comentario
-            //otro cambio
+            
         }
 
         public void Status()
