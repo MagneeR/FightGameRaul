@@ -18,6 +18,12 @@ namespace FightGameRaul
         public int Gems { get; set; } 
         public Gender Gender { get; set; }
         
+        public Player()
+        {
+            //comentario
+            //otro cambio
+        }
+
         public void Status()
         {
             Console.WriteLine($"\n\n {Name}\n");
