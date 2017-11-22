@@ -142,7 +142,7 @@ namespace FightGameRaul
         }
 
         public void Fight()
-        {
+        {//
             //hay mas de un jugador? no=error/si=seguir
             //elegir player aleatorio
             //elegir otro player aleatorio pero sin que se repita
