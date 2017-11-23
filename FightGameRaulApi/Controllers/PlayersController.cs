@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using FightGameRaul;
 
 namespace FightGameRaulApi.Controllers
 {
@@ -11,16 +12,20 @@ namespace FightGameRaulApi.Controllers
     {
         // GET api/players
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Player> Get()
         {
-            return new string[] { "Ruben", "Raul", "Javi" };
+            var playerService = new CustomPlayerService();
+            return playerService.GetPlayers();
         }
 
-        // GET api/values/5
+        // GET api/players/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Player Get(int id)
         {
-            return "value";
+            var playerService = new CustomPlayerService();
+            var players = playerService.GetPlayers();
+            var player = players.FirstOrDefault(x => x.Id == id);
+            return player;
         }
 
         // POST api/values
