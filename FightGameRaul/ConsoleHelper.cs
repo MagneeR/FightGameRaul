@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FightGame
+namespace FightGameRaul
 {
     public static class ConsoleHelper
     {

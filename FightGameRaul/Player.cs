@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FightGame
+namespace FightGameRaul
 {
     public enum Gender
     {
@@ -25,11 +25,11 @@ namespace FightGame
 
         public void Status()
         {
-            var genderDisplay = (Gender == Gender.Male)
+            /*var genderDisplay = (Gender == Gender.Male)
                 ? "Hombre"
-                : "Mujer";
+                : "Mujer";*/
 
-            ConsoleHelper.Write($"{Name.PadRight(15)}\t\t{Id}\t{Lives}\t{Power}\t{Gems}\t{genderDisplay}",
+            ConsoleHelper.Write($" {Name.PadRight(25)}\t\t\t{Id}\t{Lives}\t{Power}\t{Gems}\t{Gender}",
                 Lives > 0 ? ConsoleColor.White : ConsoleColor.Red);
         }
 

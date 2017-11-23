@@ -1,63 +1,32 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FightGame
+namespace FightGameRaul
 {
     public class Game
     {
         public const int DefaultLives = 2;
         public const int DefaultPower = 10;
+        public static int LastId = 0;
 
         public List<Player> Players { get; set; }
 
         private Random _random = new Random();
-        private int _lastId = 0;
 
         public Game()
         {
-            ConsoleHelper.Write(@"___________.__       .__     __      ________                       
-\_   _____/|__| ____ |  |___/  |_   /  _____/_____    _____   ____  
- |    __)  |  |/ ___\|  |  \   __\ /   \  ___\__  \  /     \_/ __ \ 
- |     \   |  / /_/  >   Y  \  |   \    \_\  \/ __ \|  Y Y  \  ___/ 
- \___  /   |__\___  /|___|  /__|    \______  (____  /__|_|  /\___  >
-     \/      /_____/      \/               \/     \/      \/     \/ by Raúl", ConsoleColor.DarkMagenta);
-            Players = new List<Player>
-            {
-                new Player
-                {
-                    Id = ++_lastId,
-                    Name = "Alberto",
-                    Gender = Gender.Male,
-                    Lives = DefaultLives,
-                    Power = DefaultPower
-                },
-                new Player
-                {
-                    Id = ++_lastId,
-                    Name = "Mary",
-                    Gender = Gender.Female,
-                    Lives = DefaultLives,
-                    Power = DefaultPower
-                },
-                new Player
-                {
-                    Id = ++_lastId,
-                    Name = "Juan",
-                    Gender = Gender.Male,
-                    Lives = DefaultLives,
-                    Power = DefaultPower
-                },
-                new Player
-                {
-                    Id = ++_lastId,
-                    Name = "Thor",
-                    Gender = Gender.Male,
-                    Lives = DefaultLives,
-                    Power = DefaultPower
-                },
-            };
+            ConsoleHelper.Write(@"    ___________.__       .__     __      ________                       
+    \_   _____/|__| ____ |  |___/  |_   /  _____/_____    _____   ____  
+     |    __)  |  |/ ___\|  |  \   __\ /   \  ___\__  \  /     \_/ __ \ 
+     |     \   |  / /_/  >   Y  \  |   \    \_\  \/ __ \|  Y Y  \  ___/ 
+     \___  /   |__\___  /|___|  /__|    \______  (____  /__|_|  /\___  >
+         \/      /_____/      \/               \/     \/      \/     \/ by Raúl", ConsoleColor.DarkMagenta);
+
+            IPlayerService playerService = new ApiPlayerService();//new CustomPlayerService();
+            Players = playerService.GetPlayers();
         }
 
         public void Start()
@@ -68,7 +37,7 @@ namespace FightGame
                 ConsoleKeyInfo option = Console.ReadKey(true);
                 if (option.Key == ConsoleKey.Escape)
                 {
-                    Console.WriteLine("\n chao");
+                    Console.WriteLine("\n Closing Game..");
                     Task.Run(async () => await Task.Delay(1500)).Wait();
                     break;
                 }
@@ -103,13 +72,13 @@ namespace FightGame
 
         private void Menu()
         {
-            Console.WriteLine("\n\nElige una opción:\n");
-            Console.WriteLine("0. Mostrar menu");
-            Console.WriteLine("1. Añadir jugador");
-            Console.WriteLine("2. Status");
-            Console.WriteLine("3. Luchar");
-            Console.WriteLine("4. Pulsa c para borrar la pantalla");
-            Console.WriteLine("5. Salir");
+            Console.WriteLine("\n\n Choose an option:\n");
+            Console.WriteLine(" 0. Show menu");
+            Console.WriteLine(" 1. Add New Player");
+            Console.WriteLine(" 2. Status");
+            Console.WriteLine(" 3. Fight!");
+            Console.WriteLine(" 4. Press c to clear the screen");
+            Console.WriteLine(" 5. Exit");
 
             
         }
@@ -120,7 +89,7 @@ namespace FightGame
 
             while (string.IsNullOrEmpty(name) || name.Length < 3)
             {
-                Console.WriteLine("\n\nEscribe nombre del jugador (y presiona enter):");
+                Console.WriteLine("\n\n Write player name (and press Enter):");
                 name = Console.ReadLine();
             }
 
@@ -128,7 +97,7 @@ namespace FightGame
 
             while (gender == null)
             {
-                Console.WriteLine("\nElige sexo:\n1. Femenino\n2. Masculino");
+                Console.WriteLine("\n Choose gender:\n 1. Female\n 2. Male");
                 var genderKey = Console.ReadKey(true);
 
                 if (genderKey.KeyChar == '1')
@@ -143,7 +112,7 @@ namespace FightGame
 
             var player = new Player
             {
-                Id = ++_lastId,
+                Id = ++LastId,
                 Gender = gender.Value,
                 Name = name,
                 Power = DefaultPower,
@@ -152,7 +121,7 @@ namespace FightGame
 
             Players.Add(player);
 
-            Console.WriteLine($"\n\n {player.Name}ha sido añadido");
+            Console.WriteLine($"\n\n {player.Name} has been added.");
 
     
         }
@@ -166,7 +135,7 @@ namespace FightGame
             // hay más de un jugador?
             if (currentPlayers.Count < 2)
             {
-                ConsoleHelper.Write("\nNo hay suficientes jugadores", ConsoleColor.Red);
+                ConsoleHelper.Write("\n There aren't enough players to fight :(", ConsoleColor.Red);
                 return;
             }
 
@@ -185,7 +154,7 @@ namespace FightGame
             var damage = _random.Next(1, 5);
             player2.Power -= damage;
 
-            ConsoleHelper.Write($"==> {player1.Name} ha zurrado a {player2.Name} con una fuerza de {damage}",
+            ConsoleHelper.Write($" ==> {player1.Name} has hitten {player2.Name} with a force of {damage}.",
                 ConsoleColor.Blue);
 
             if (player2.Power <= 0)
@@ -195,20 +164,20 @@ namespace FightGame
 
                 if (player2.Lives > 0)
                 {
-                    ConsoleHelper.Write($"{player2.Name} ha perdido una vida",
+                    ConsoleHelper.Write($" {player2.Name} has lost a LIFE!",
                         ConsoleColor.Yellow);
                 }
                 else
                 {
                     player2.Gems = 0;
-                    ConsoleHelper.Write($"{player2.Name} ha muerto",
+                    ConsoleHelper.Write($" {player2.Name} has been slain!",
                         ConsoleColor.Red);
                 }
 
                 player1.Gems++;
 
-                ConsoleHelper.Write($"{player1.Name} ha ganado una gema. " +
-                    $"Ahora tiene {player1.Gems} en total.",
+                ConsoleHelper.Write($" {player1.Name} has won a GEM! " +
+                    $" Now {player1.Name} has {player1.Gems} gems.",
                     ConsoleColor.Green);
 
                 // cada 3 gemas le damos una vida
@@ -217,7 +186,7 @@ namespace FightGame
                     player1.Lives++;
                     player1.Gems = 0;
 
-                    ConsoleHelper.Write($"{player1.Name} ha ganado una VIDA!!",
+                    ConsoleHelper.Write($" {player1.Name} has won a LIFE!!",
                         ConsoleColor.Magenta);
                 }
 
@@ -227,7 +196,7 @@ namespace FightGame
                     Console.WriteLine("\n\n+============================================+");
                     Console.WriteLine("+============================================+");
                     Console.WriteLine("+============================================+");
-                    ConsoleHelper.Write($"      {player1.Name} HA GANADO", ConsoleColor.Cyan);
+                    ConsoleHelper.Write($"      {player1.Name} HAS WON!!", ConsoleColor.Cyan);
                     Console.WriteLine("+============================================+");
                     Console.WriteLine("+============================================+");
                     Console.WriteLine("+============================================+");
@@ -239,12 +208,12 @@ namespace FightGame
         {
             if (Players.Count == 0)
             {
-                Console.WriteLine("\nNo hay jugadores");
+                Console.WriteLine("\n There aren´t players.");
             }
             else
             {
-                Console.WriteLine($"\nNombre\t\t\tId\tVidas\tPoder\tGemas\tSexo");
-                Console.WriteLine($"--------------------------------------------------------");
+                Console.WriteLine($"\n Name\t\t\t\t\t\tId\tLives\tPower\tGems\tGender");
+                Console.WriteLine($"--------------------------------------------------------------------------------------------------");
 
                 var ordered = Players
                     .OrderByDescending(x => x.Lives)
