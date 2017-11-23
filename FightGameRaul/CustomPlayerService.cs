@@ -50,8 +50,8 @@ namespace FightGameRaul
             //forma 2: convertir List<Person> en nuestro List<Player> con LINQ
             var players = people.results.Select(person => new Player {
                 Id = ++Game.LastId,
-                Name = person.name,
-                Gender = person.gender == "male" ? Gender.Male : Gender.Female,//si person.gender == "male", entonces Gender.Male ; si no Gender.Female
+                Name = person.PlayerName,
+                Gender = person.PlayerGender == "male" ? Gender.Male : Gender.Female,//si person.gender == "male", entonces Gender.Male ; si no Gender.Female
                 Lives = Game.DefaultLives,
                 Power = Game.DefaultPower
             });
