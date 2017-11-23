@@ -23,14 +23,13 @@ namespace FightGameRaul
             // otro cambio
         }
 
-        public void Status()
+        public string Status()
         {
             /*var genderDisplay = (Gender == Gender.Male)
                 ? "Hombre"
                 : "Mujer";*/
 
-            ConsoleHelper.Write($" {Name.PadRight(25)}\t\t\t{Id}\t{Lives}\t{Power}\t{Gems}\t{Gender}",
-                Lives > 0 ? ConsoleColor.White : ConsoleColor.Red);
+            return $" {Name.PadRight(25)}\t\t\t{Id}\t{Lives}\t{Power}\t{Gems}\t{Gender}";
         }
 
     }

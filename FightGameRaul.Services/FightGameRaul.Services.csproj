@@ -1,8 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,7 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FightGameRaul.Model\FightGameRaul.Model.csproj" />
-    <ProjectReference Include="..\FightGameRaul.Services\FightGameRaul.Services.csproj" />
   </ItemGroup>
 
 </Project>
