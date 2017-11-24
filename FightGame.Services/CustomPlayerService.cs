@@ -76,11 +76,18 @@ namespace FightGame
                 matching.Power = player.Power;
                 matching.Name = player.Name;
                 matching.Gender = player.Gender;
+                matching.Gems = player.Gems;
 
                 return matching;
             }
 
             throw new Exception("Jugador no encontrado");
+        }
+
+        public void Delete(int id)
+        {
+            var player = _players.First(x => x.Id == id);
+            _players.Remove(player);
         }
     }
 }

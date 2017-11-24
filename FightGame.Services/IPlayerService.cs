@@ -11,5 +11,7 @@ namespace FightGame
         Player AddPlayer(Player player);
 
         Player UpdatePlayer(Player player);
+
+        void Delete(int id);
     }
 }

@@ -15,7 +15,7 @@ namespace FightGame
 
         public Player AddPlayer(Player player)
         {
-            player.Id = _players.Max(x => x.Id) + 1;
+            player.Id = GetPlayers().Max(x => x.Id) + 1;
             _players.Add(player);
 
             return player;
@@ -59,12 +59,18 @@ namespace FightGame
                 matching.Lives = player.Lives;
                 matching.Power = player.Power;
                 matching.Name = player.Name;
-                matching.Gender = player.Gender;
+                matching.Gems = player.Gems;
 
                 return matching;
             }
 
             throw new Exception("Jugador no encontrado");
+        }
+
+        public void Delete(int id)
+        {
+            var player = _players.First(x => x.Id == id);
+            _players.Remove(player);
         }
     }
 }
