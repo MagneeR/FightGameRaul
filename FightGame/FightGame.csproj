@@ -10,8 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FightGameRaul.Model\FightGameRaul.Model.csproj" />
-    <ProjectReference Include="..\FightGameRaul.Services\FightGameRaul.Services.csproj" />
+    <ProjectReference Include="..\FightGame.Model\FightGame.Model.csproj" />
+    <ProjectReference Include="..\FightGame.Services\FightGame.Services.csproj" />
   </ItemGroup>
 
 </Project>

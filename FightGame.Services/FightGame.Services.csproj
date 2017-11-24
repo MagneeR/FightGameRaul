@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FightGameRaul.Model\FightGameRaul.Model.csproj" />
+    <ProjectReference Include="..\FightGame.Model\FightGame.Model.csproj" />
   </ItemGroup>
 
 </Project>
